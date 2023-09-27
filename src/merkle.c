@@ -16,19 +16,24 @@ int main(int argc, char* argv[]) {
     }
 
     // TODO: Read in the command line arguments and validate them
-    char *input_file;
-    int n;
-
+    // DONE by Stephen, CHECKED by ______
+    char *input_file = argv[1];
+    int n = argv[2];
+    if(!(x && (!(x & (x - 1))))) {
+        printf("N should be a power of 2");
+        return 1;
+    }
 
     // ##### DO NOT REMOVE #####
     setup_output_directory(blocks_folder, hashes_folder);
 
     // TODO: Implement this function in utils.c
+    // DONE by ____, CHECKED by ______ (IN PROGRESS by Stephen)
     partition_file_data(input_file, n, blocks_folder);
 
-
     // TODO: Start the recursive merkle tree computation by spawning first child process (root)
-
+    // DONE by Stephen, CHECKED by ______
+    fork();
 
     // ##### DO NOT REMOVE #####
     #ifndef TEST_INTERMEDIATE
