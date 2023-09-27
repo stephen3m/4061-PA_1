@@ -13,15 +13,15 @@ void partition_file_data(char *input_file, int n, char *blocks_folder) {
 
     // Calculate file sizes (how many bytes each file should contain)
     // file_size_1 is for first N-1 files; file_size_2 is for last file
-    int file_size_1 = floor(file_len/N);
-    int file_size_2 = floor(file_len/N) + (file_len % N);
+    int file_size_1 = floor(file_len/n);
+    int file_size_2 = floor(file_len/n) + (file_len % n);
 
     // Create first N-1 files in the folder "output/blocks/" (will be created when setup function is called)
     char file_path[1024];
     FILE* fp_block_file;
     char input_file_content[file_size_1 + 1];
     fseek(fp, 0, SEEK_SET); //Set input_file position to beginning
-    for(int i = 0; i < N-1; i++) {
+    for(int i = 0; i < n-1; i++) {
         sprintf(file_path, "%s%d.txt", "output/blocks/", i);
         // Create a file with the name i.txt in output/blocks/ 
         fp_block_file = fopen(file_path, "w+"); 
@@ -34,7 +34,7 @@ void partition_file_data(char *input_file, int n, char *blocks_folder) {
     }
     
     // Create last file in the folder "output/blocks/"
-    sprintf(file_path, "%s%d.txt", "output/blocks/", N-1);
+    sprintf(file_path, "%s%d.txt", "output/blocks/", n-1);
     fp_block_file = fopen(file_path, "w+");
     char input_file_content_2[file_size_2 + 1];
     fgets(input_file_content_2, file_size_2, fp);

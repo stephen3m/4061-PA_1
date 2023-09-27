@@ -18,8 +18,8 @@ int main(int argc, char* argv[]) {
     // TODO: Read in the command line arguments and validate them
     // DONE by Stephen, CHECKED by ______
     char *input_file = argv[1];
-    int n = argv[2];
-    if(!(x && (!(x & (x - 1))))) {
+    int n = atoi(argv[2]);
+    if(!(n && (!(n & (n - 1))))) {
         printf("N should be a power of 2");
         return 1;
     }
