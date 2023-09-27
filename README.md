@@ -1,9 +1,9 @@
 Project group number: PA 27
 
-Group member names and x500s
-Stephen Ma, ma000094
-Robert Wang, wan00379
-Robert Tan, tan00222
+Group member names and x500s:
+1. Stephen Ma, ma000094
+2. Robert Wang, wan00379
+3. Robert Tan, tan00222
 
 The name of the CSELabs computer that you tested your code on
 e.g. csel-kh1250-01.cselabs.umn.edu
