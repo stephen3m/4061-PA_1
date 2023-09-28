@@ -29,13 +29,12 @@ int main(int argc, char* argv[]) {
     setup_output_directory(blocks_folder, hashes_folder);
 
     // TODO: Implement this function in utils.c
-    // DONE by ____, CHECKED by ______ (IN PROGRESS by Stephen)
-    // tested with t1/t2 by RoberT, seems to work good
+    // DONE by Stephen, TESTED and FIXED ISSUES by RoberT
     partition_file_data(input_file, n, blocks_folder);
 
     // TODO: Start the recursive merkle tree computation by spawning first child process (root)
-    // DONE by Stephen, CHECKED by ______
-    fork();
+    // DONE by _____, CHECKED by ______ (In progress by Stephen)
+    pid_t pid = fork();
 
     // ##### DO NOT REMOVE #####
     #ifndef TEST_INTERMEDIATE

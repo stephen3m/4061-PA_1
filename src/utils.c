@@ -10,8 +10,7 @@ void partition_file_data(char *input_file, int n, char *blocks_folder) {
     FILE* fp = fopen(input_file, "r");
     
     if( fp == NULL )  {
-          perror ("Error opening file \n");
-          return(-1);
+          perror("Error opening file \n");
     }
     
     fseek(fp, 0, SEEK_END);
@@ -28,7 +27,7 @@ void partition_file_data(char *input_file, int n, char *blocks_folder) {
     char input_file_content[file_size_1 + 1];
     fseek(fp, 0, SEEK_SET); //Set input_file position to beginning
     for(int i = 0; i < n-1; i++) {
-        sprintf(file_path, "%s%d.txt", blocks_folder, i);
+        sprintf(file_path, "%s/%d.txt", blocks_folder, i);
         // Create a file with the name i.txt in output/blocks/ 
         fp_block_file = fopen(file_path, "w+"); 
         // Read file_size_1 bytes from input_file and store in string
@@ -39,7 +38,7 @@ void partition_file_data(char *input_file, int n, char *blocks_folder) {
     }
     
     // Create last file in the folder blocks_folder
-    sprintf(file_path, "%s%d.txt", blocks_folder, n-1);
+    sprintf(file_path, "%s/%d.txt", blocks_folder, n-1);
     fp_block_file = fopen(file_path, "w+");
     char input_file_content_2[file_size_2 + 1];
     fgets(input_file_content_2, file_size_2 + 1, fp);
@@ -47,7 +46,6 @@ void partition_file_data(char *input_file, int n, char *blocks_folder) {
     fclose(fp_block_file);
 
     fclose(fp);
-
 }
 
 
