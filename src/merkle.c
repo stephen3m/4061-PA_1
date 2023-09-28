@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
 
     // TODO: Start the recursive merkle tree computation by spawning first child process (root)
     // DONE by _____, CHECKED by ______ (In progress by Stephen)
-    pid_t pid = fork();
+    fork();
 
     // ##### DO NOT REMOVE #####
     #ifndef TEST_INTERMEDIATE
