@@ -31,19 +31,19 @@ Robert Tan:
 **Plan on how you are going to implement the process tree component of creating the Merkle tree:
 (high-level pseudocode would be acceptable/preferred for this part)**  
 ***Pseudocode for child_process.c:***
-read in args and store in variables
-if current process is a leaf node (n-1 <= child_id <= 2n-1):
-  hash content from (child_id-(n-1)).txt using hash_data_block and store in char array
-  create corresponding .out file and write the hash to it
-  return
-else if the current process is a non-leaf node:
-  spawn child process for left child (2 * child_id+1) by calling execl
-  spawn child process for right child (2 * child_id+2) by calling execl
-wait for both child processes to finish executing 
-read content from left child process' .out file and store in char array
-read content from right child process' .out file and store in char array
-call compute_dual_hash to compute the hash of the concatenation of the two hashes
-write the combined hash to its own .out file
+read in args and store in variables  
+if current process is a leaf node (n-1 <= child_id <= 2n-1):  
+  hash content from (child_id-(n-1)).txt using hash_data_block and store in char array  
+  create corresponding .out file and write the hash to it  
+  return  
+else if the current process is a non-leaf node:  
+  spawn child process for left child (2 * child_id+1) by calling execl  
+  spawn child process for right child (2 * child_id+2) by calling execl  
+wait for both child processes to finish executing  
+read content from left child process' .out file and store in char array  
+read content from right child process' .out file and store in char array  
+call compute_dual_hash to compute the hash of the concatenation of the two hashes  
+write the combined hash to its own .out file  
 return
   
 
