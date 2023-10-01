@@ -30,7 +30,7 @@ Robert Tan:
 
 **Plan on how you are going to implement the process tree component of creating the Merkle tree:
 (high-level pseudocode would be acceptable/preferred for this part)**  
-***Pseudocode for child_process.c:***
+***Pseudocode for child_process.c:***  
 read in args and store in variables  
 if current process is a leaf node (n-1 <= child_id <= 2n-1):  
   hash content from (child_id-(n-1)).txt using hash_data_block and store in char array  
