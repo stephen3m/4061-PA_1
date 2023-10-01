@@ -16,10 +16,12 @@ Stephen Ma:
 * Outline and write code for partition_file_data function in utils.c
 * Create pseudocode for child_process.c
 * Outline and write code for child_process.c
+<br>
 Robert Wang:
 * Check over merkle.c and fix issues
 * Write code for child_process.c
 * Check over child_process.c and fix issues
+<br>
 Robert Tan:
 * Check over merkle.c and fix issues
 * Write code for child_process.c
