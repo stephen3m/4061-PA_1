@@ -10,16 +10,16 @@ csel-kh1250-21.cselabs.umn.edu
 
 Any changes you made to the Makefile or existing files that would affect grading: N/A
 
-Plan outlining individual contributions for each member of your group:__
+Plan outlining individual contributions for each member of your group:  
 Stephen Ma:
 * Outline and write code in merkle.c
 * Outline and write code for partition_file_data function in utils.c
 * Create pseudocode for child_process.c
-* Outline and write code for child_process.c__
+* Outline and write code for child_process.c  
 Robert Wang:
 * Check over merkle.c and fix issues
 * Write code for child_process.c
-* Check over child_process.c and fix issues__
+* Check over child_process.c and fix issues  
 Robert Tan:
 * Check over merkle.c and fix issues
 * Write code for child_process.c
@@ -27,7 +27,7 @@ Robert Tan:
 * Run tests using make command to ensure code works
 
 Plan on how you are going to implement the process tree component of creating the Merkle tree:
-(high-level pseudocode would be acceptable/preferred for this part)__
+(high-level pseudocode would be acceptable/preferred for this part)  
 **Pseudocode for child_process.c:**
 read in args and store in variables
 if current process is a leaf node (n-1 <= child_id <= 2n-1):
