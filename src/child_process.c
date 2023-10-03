@@ -63,43 +63,48 @@ int main(int argc, char* argv[]) {
     // and compute and output the hash of the concatenation of the two hashes.
     // DONE by _____, CHECKED by ______ (In progress by Stephen and RoberT)
 
+    // store file path names for left and right children hash files 
+    char left_path[PATH_MAX]; // output/hashes/left_child_id.out
+    char right_path[PATH_MAX]; // output/hashes/right_child_id.out
+    sprintf(left_path, "%s%d.out", hashes_folder, (2*child_id + 1));
+    sprintf(right_path, "%s%d.out", hashes_folder, (2*child_id + 2));
+
+    // open children hash files for reading
+    FILE* fd_left; 
+    FILE* fd_right;
+    if(((fd_left = fopen(left_path, "r")) == NULL) || ((fd_right = fopen(right_path, "r")) == NULL)) {
+        perror("Error opening one of the children hash files \n");
+        exit(-1);
+    }
+
     char left_hash[SHA256_BLOCK_SIZE * 2 + 1];
     char right_hash[SHA256_BLOCK_SIZE * 2 + 1];
     char result_hash[SHA256_BLOCK_SIZE * 2 + 1];
 
-    // Retrieve left (2*child_id + 1) and right (2*child_id + 2) hash from hashes_folder
-    // Open the respective files: E.g. for left, it would be ("%d",2*child_id + 1).out
-    // Next, we want to read all of the data from the respective .out files into left_hash and right_hash
-    char left_path[PATH_MAX];
-    char right_path[PATH_MAX]; 
-    sprintf(left_path, "%s%d.out", hashes_folder, (2*child_id + 2));
-    sprintf(right_path, "%s%d.out", hashes_folder, (2*child_id + 1));
-
-    int fd_left, fd_right;
-    if((fd_left = fopen(left_path, 'r')) || (fd_right = fopen(right_path, 'r'))) {
-        perror("Error opening left or right hash outputs \n");
-        exit(-1);
-    }
-
+    // read data from children hash .out files and store in strings  
     fread(left_hash, sizeof(char), SHA256_BLOCK_SIZE * 2 + 1, fd_left);
     fread(right_hash, sizeof(char), SHA256_BLOCK_SIZE * 2 + 1, fd_right);
 
-    //*Don't think what I have below is correct* // pretty sure it's correct, it's what the documentation says
-    // To compute and output the hash of the concatenation of the two hashes, we use compute_dual_hash, 
-    // and the result is stored in result_hash.
+    //close fd_left and fd_right
+    fclose(fd_left);
+    fclose(fd_right);
+
+    // compute hash of the concatenation of the two children hashes and store in result_hash
     compute_dual_hash(result_hash, left_hash, right_hash);
 
-    // write data to hash file
+    // store file path name for output/hashes/process_id.out
     char hash_output_name[PATH_MAX];
     sprintf(hash_output_name, "%s%d.out", hashes_folder, child_id);
-    int hashfd;
-
-    if (hashfd = fopen(hash_output_name, 'w+')) {
+    
+    // write result_hash to current_process_id.out file
+    FILE* hashfd;
+    if ((hashfd = fopen(hash_output_name, "w+")) == NULL) {
         perror("Couldn't open file to write hash \n");
         exit(-1);
     }
-    sprintf(hashfd, result_hash);
-    
+    fprintf(hashfd, "%s", result_hash);
+    fclose(hashfd);
+
     return 0;
 }
 
