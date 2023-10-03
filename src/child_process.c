@@ -7,7 +7,7 @@
 
 #define PATH_MAX 1024
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[]) {    
     if (argc != 5) {
         printf("Usage: ./child_process <blocks_folder> <hashes_folder> <N> <child_id>\n");
         return 1;
@@ -66,8 +66,8 @@ int main(int argc, char* argv[]) {
     // store file path names for left and right children hash files 
     char left_path[PATH_MAX]; // output/hashes/left_child_id.out
     char right_path[PATH_MAX]; // output/hashes/right_child_id.out
-    sprintf(left_path, "%s%d.out", hashes_folder, (2*child_id + 1));
-    sprintf(right_path, "%s%d.out", hashes_folder, (2*child_id + 2));
+    sprintf(left_path, "%s/%d.out", hashes_folder, (2*child_id + 1));
+    sprintf(right_path, "%s/%d.out", hashes_folder, (2*child_id + 2));
 
     // open children hash files for reading
     FILE* fd_left; 
@@ -94,7 +94,7 @@ int main(int argc, char* argv[]) {
 
     // store file path name for output/hashes/process_id.out
     char hash_output_name[PATH_MAX];
-    sprintf(hash_output_name, "%s%d.out", hashes_folder, child_id);
+    sprintf(hash_output_name, "%s/%d.out", hashes_folder, child_id);
     
     // write result_hash to current_process_id.out file
     FILE* hashfd;
