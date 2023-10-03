@@ -45,7 +45,7 @@ int main(int argc, char* argv[]) {
     sprintf(n_value, "%d", n);
 
     if (pid == 0){  // spawn child process
-        execl("./child_process", "output/blocks/", "output/hashes/", n_value, "0", NULL);
+        execl("./child_process", blocks_folder, hashes_folder, n_value, "0", NULL);
     } else {
         wait(NULL);
         printf("Merkle tree creation completed.\n");

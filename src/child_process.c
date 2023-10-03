@@ -15,7 +15,7 @@ int main(int argc, char* argv[]) {
 
     // TODO: If the current process is a leaf process, read in the associated block file 
     // and compute the hash of the block.
-    // DONE by Stephen, CHECKED by ______ 
+    // DONE by Stephen and RoberT, CHECKED by ______ 
 
     // Store arg values 
     char *blocks_folder = argv[1];
@@ -24,28 +24,30 @@ int main(int argc, char* argv[]) {
     int child_id = atoi(argv[4]);
 
     if((child_id >= n-1) && (child_id <= (2*n)-1)) {
-        char block_hash[SHA256_BLOCK_SIZE * 2 + 1];
-        char block_filename[PATH_MAX];
-        int block_id = child_id - (n-1); // To figure out which block_id.txt to use for hashing
+        char block_hash[SHA256_BLOCK_SIZE * 2 + 1]; // for storing hashed data after hashing block_id.txt content
+        char block_filename[PATH_MAX]; // the string "output/blocks/block_id.txt"
+        int block_id = child_id - (n-1); // to figure out which block_id.txt to use for hashing
         sprintf(block_filename, "%s/%d.txt", blocks_folder, block_id);
         hash_data_block(block_hash, block_filename);
 
-        // write data to hash file
+        // write hashed data to a string
         char hash_output_name[PATH_MAX];
-        sprintf(hash_output_name, "%s%d.out", hashes_folder, child_id);
-        int hashfd;
+        sprintf(hash_output_name, "%s/%d.out", hashes_folder, child_id);
 
-        if (hashfd = fopen(hash_output_name, 'w+')) {
+        // create child_id.out in output/hashes and write data from hash_output_name to the file
+        FILE* hashfd; 
+        if ((hashfd = fopen(hash_output_name, "w+")) == NULL) { // check if opening the file returns NULL
             perror("Couldn't open file to write hash \n");
             exit(-1);
         }
-        sprintf(hashfd, block_hash);
+        fprintf(hashfd, "%s", block_hash);
+        fclose(hashfd);
         exit(0);
     }
 
     // TODO: If the current process is not a leaf process, spawn two child processes using  
     // exec() and ./child_process. 
-    // DONE by _____, CHECKED by ______ (In progress by Stephen)
+    // DONE by Stephen, CHECKED by RoberT
     else {
         // spawn child process for left child
         execl("./child_process", blocks_folder, hashes_folder, n, (2*child_id + 1), NULL);
