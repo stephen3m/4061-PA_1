@@ -33,26 +33,22 @@ int main(int argc, char* argv[]) {
     partition_file_data(input_file, n, blocks_folder);
 
     // TODO: Start the recursive merkle tree computation by spawning first child process (root)
-    // DONE by _____, CHECKED by ______ (In progress by Stephen, RobertW)
-
-    // OK I think this is sort of what we need but not completely sure if I got the file paths correctly
-    // Next person check this over
-    pid_t pid;
-
-    pid = fork();
-
+    // DONE by RobertW, CHECKED by Stephen 
+    pid_t pid = fork();
     if (pid < 0){
         perror("fork failed");
         exit(1);
     }
 
+    // convert n into string
     char n_value[10];
     sprintf(n_value, "%d", n);
-    if (pid == 0){  // child process
-        execl("./child_process", "child_process", "output/blocks/", "output/hashes/", n_value, "0", (char *)NULL);
-    } else{
+
+    if (pid == 0){  // spawn child process
+        execl("./child_process", "output/blocks/", "output/hashes/", n_value, "0", NULL);
+    } else {
         wait(NULL);
-        printf("Merkle tree creation completed. \n");
+        printf("Merkle tree creation completed.\n");
     }
 
     // ##### DO NOT REMOVE #####

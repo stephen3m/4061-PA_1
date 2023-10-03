@@ -20,8 +20,8 @@ int main(int argc, char* argv[]) {
     // Store arg values 
     char *blocks_folder = argv[1];
     char *hashes_folder = argv[2];
-    int n = argv[3];
-    int child_id = argv[4];
+    int n = atoi(argv[3]);
+    int child_id = atoi(argv[4]);
 
     if((child_id >= n-1) && (child_id <= (2*n)-1)) {
         char block_hash[SHA256_BLOCK_SIZE * 2 + 1];
@@ -98,6 +98,6 @@ int main(int argc, char* argv[]) {
     }
     sprintf(hashfd, result_hash);
     
-    
+    return 0;
 }
 
