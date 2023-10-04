@@ -10,7 +10,7 @@ void partition_file_data(char *input_file, int n, char *blocks_folder) {
     FILE* fp = fopen(input_file, "r");
     
     if( fp == NULL )  {
-        perror("Error opening file \n");
+        printf("Error opening file \n");
         exit(1);
     }
     
@@ -30,7 +30,10 @@ void partition_file_data(char *input_file, int n, char *blocks_folder) {
     for(int i = 0; i < n-1; i++) {
         sprintf(file_path, "%s/%d.txt", blocks_folder, i);
         // Create a file with the name i.txt in output/blocks/ 
-        fp_block_file = fopen(file_path, "w+"); 
+        if((fp_block_file = fopen(file_path, "w+")) == NULL) {
+            printf("Error creating file \n");
+            exit(1);
+        }
         // Read file_size_1 bytes from input_file and store in string
         fgets(input_file_content, file_size_1 + 1, fp);
         // Write string to i.txt

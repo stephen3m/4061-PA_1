@@ -36,8 +36,8 @@ int main(int argc, char* argv[]) {
     // DONE by RobertW, CHECKED by Stephen 
     pid_t pid = fork();
     if (pid < 0){
-        perror("fork failed");
-        exit(1);
+        printf("Fork failed\n");
+        return 1;
     }
 
     // convert n into string
@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
 
     if (pid == 0){  // spawn child process
         execl("./child_process", "./child_process", blocks_folder, hashes_folder, n_value, "0", NULL);
-    } else {
+    } else { // parent process waits for child process
         wait(NULL);
         printf("Merkle tree creation completed.\n");
     }
