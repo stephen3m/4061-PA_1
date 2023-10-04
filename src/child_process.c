@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
 
         // create child_id.out in output/hashes and write data from hash_output_name to the file
         FILE* hashfd; 
-        if ((hashfd = fopen(hash_output_name, "w+")) == NULL) { // check if opening the file returns NULL
+        if ((hashfd = fopen(hash_output_name, "w")) == NULL) { // check if opening the file returns NULL
             perror("Couldn't open file to write hash \n");
             exit(1);
         }
@@ -59,7 +59,7 @@ int main(int argc, char* argv[]) {
         if (!fork()) {
             execl("./child_process", "./child_process", blocks_folder, hashes_folder, n_str, chID_left, NULL);
         }
-            // spawn child process for right child
+        // spawn child process for right child
         if (!fork()) {
             execl("./child_process", "./child_process", blocks_folder, hashes_folder, n_str, chID_right, NULL);
         }
@@ -108,7 +108,7 @@ int main(int argc, char* argv[]) {
     
     // write result_hash to current_process_id.out file
     FILE* hashfd;
-    if ((hashfd = fopen(hash_output_name, "w+")) == NULL) {
+    if ((hashfd = fopen(hash_output_name, "w")) == NULL) {
         perror("Couldn't open file to write hash \n");
         exit(-1);
     }
