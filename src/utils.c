@@ -11,6 +11,7 @@ void partition_file_data(char *input_file, int n, char *blocks_folder) {
     
     if( fp == NULL )  {
         perror("Error opening file \n");
+        exit(1);
     }
     
     fseek(fp, 0, SEEK_END);

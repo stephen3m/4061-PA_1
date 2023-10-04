@@ -38,7 +38,7 @@ int main(int argc, char* argv[]) {
         FILE* hashfd; 
         if ((hashfd = fopen(hash_output_name, "w+")) == NULL) { // check if opening the file returns NULL
             perror("Couldn't open file to write hash \n");
-            exit(-1);
+            exit(1);
         }
         fprintf(hashfd, "%s", block_hash);
         fclose(hashfd);
@@ -49,10 +49,20 @@ int main(int argc, char* argv[]) {
     // exec() and ./child_process. 
     // DONE by Stephen, CHECKED by RoberT
     else {
+        char n_str[3];
+        char chID_left[3];
+        char chID_right[3];
+        sprintf(n_str, "%d", n);
+        sprintf(chID_left, "%d", (2*child_id + 1));
+        sprintf(chID_right, "%d", (2*child_id + 2));
         // spawn child process for left child
-        execl("./child_process", blocks_folder, hashes_folder, n, (2*child_id + 1), NULL);
-        // spawn child process for right child
-        execl("./child_process", blocks_folder, hashes_folder, n, (2*child_id + 2), NULL);
+        if (!fork()) {
+            execl("./child_process", "./child_process", blocks_folder, hashes_folder, n_str, chID_left, NULL);
+        }
+            // spawn child process for right child
+        if (!fork()) {
+            execl("./child_process", "./child_process", blocks_folder, hashes_folder, n_str, chID_right, NULL);
+        }
     }
 
     // TODO: Wait for the two child processes to finish
