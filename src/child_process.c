@@ -40,7 +40,7 @@ int main(int argc, char* argv[]) {
             printf("Couldn't open file to write hash\n");
             return 1;
         }
-        fwrite(block_hash, 1, SHA256_BLOCK_SIZE * 2 + 1, hashfd);
+        fwrite(block_hash, sizeof(char), SHA256_BLOCK_SIZE * 2 + 1, hashfd);
         fclose(hashfd);
         return 0;
     }
@@ -55,15 +55,25 @@ int main(int argc, char* argv[]) {
         sprintf(n_str, "%d", n);
         sprintf(chID_left, "%d", (2*child_id + 1));
         sprintf(chID_right, "%d", (2*child_id + 2));
-        // spawn child process for left child
-        if (!fork()) {
+        
+         // spawn child process for left child
+        pid_t left_child = fork();
+        if (left_child < 0) {
+            printf("Issues spawning children in child_process\n");
+            return 1;
+        } else if (left_child == 0) {
             execl("./child_process", "./child_process", blocks_folder, hashes_folder, n_str, chID_left, NULL);
         }
+        
         // spawn child process for right child
-        if (!fork()) {
+        pid_t right_child = fork();
+        if (left_child < 0) {
+            printf("Issues spawning children in child_process\n");
+            return 1;
+        } else if (right_child == 0) {
             execl("./child_process", "./child_process", blocks_folder, hashes_folder, n_str, chID_right, NULL);
         }
-    }
+    } 
 
     // TODO: Wait for the two child processes to finish
     // DONE by Stephen, CHECKED by RoberT 
@@ -112,7 +122,7 @@ int main(int argc, char* argv[]) {
         printf("Couldn't open file to write hash\n");
         return 1;
     }
-    fwrite(result_hash, 1, SHA256_BLOCK_SIZE * 2 + 1, hashfd);
+    fwrite(result_hash, sizeof(char), SHA256_BLOCK_SIZE * 2 + 1, hashfd);
     fclose(hashfd);
 
     return 0;
