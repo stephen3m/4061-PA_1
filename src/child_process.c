@@ -49,9 +49,9 @@ int main(int argc, char* argv[]) {
     // exec() and ./child_process. 
     // DONE by Stephen, CHECKED by RoberT
     else {
-        char n_str[3];
-        char chID_left[3];
-        char chID_right[3];
+        char n_str[PATH_MAX];
+        char chID_left[PATH_MAX];
+        char chID_right[PATH_MAX];
         sprintf(n_str, "%d", n);
         sprintf(chID_left, "%d", (2*child_id + 1));
         sprintf(chID_right, "%d", (2*child_id + 2));
@@ -67,7 +67,7 @@ int main(int argc, char* argv[]) {
         
         // spawn child process for right child
         pid_t right_child = fork();
-        if (left_child < 0) {
+        if (right_child < 0) {
             printf("Issues spawning children in child_process\n");
             return 1;
         } else if (right_child == 0) {

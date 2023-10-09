@@ -35,9 +35,9 @@ void partition_file_data(char *input_file, int n, char *blocks_folder) {
             exit(1);
         }
         // Read file_size_1 bytes from input_file and store in string
-        fgets(input_file_content, file_size_1 + 1, fp);
+        fread(input_file_content, sizeof(char), file_size_1, fp);
         // Write string to i.txt
-        fputs(input_file_content, fp_block_file);
+        fwrite(input_file_content, sizeof(char), file_size_1, fp_block_file);
         fclose(fp_block_file);
     }
     
@@ -45,8 +45,8 @@ void partition_file_data(char *input_file, int n, char *blocks_folder) {
     sprintf(file_path, "%s/%d.txt", blocks_folder, n-1);
     fp_block_file = fopen(file_path, "w+");
     char input_file_content_2[file_size_2 + 1];
-    fgets(input_file_content_2, file_size_2 + 1, fp);
-    fputs(input_file_content_2, fp_block_file);
+    fread(input_file_content_2, sizeof(char), file_size_2, fp);
+    fwrite(input_file_content_2, sizeof(char), file_size_2, fp_block_file);
     fclose(fp_block_file);
 
     fclose(fp);

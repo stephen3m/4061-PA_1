@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
     // DONE by Stephen, CHECKED by RoberT
     char *input_file = argv[1];
     int n = atoi(argv[2]);
-    if(!(n && (!(n & (n - 1))))) {
+    if(n & (n - 1)) {
         printf("N should be a power of 2 \n");
         return 1;
     }
